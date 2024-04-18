@@ -11,7 +11,7 @@ const app: Express = express();
 const port = process.env.PORT || 4000;
 
 // express config
-app.use(cors({ credentials: true, origin: 'http://localhost:3002' }));
+app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 app.use(bodyParser.json())
 app.use(morgan('tiny'))
 app.use(cookieParser())
