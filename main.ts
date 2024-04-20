@@ -16,6 +16,9 @@ app.use(bodyParser.json())
 app.use(morgan('tiny'))
 app.use(cookieParser())
 
+app.get('/', (req, res) => {
+    res.send("Welcome to decent store backend!")
+})
 // database connection 
 AppDataSource.initialize().then(async () => {
     console.log("Data Source has been initialized! 🎈")
