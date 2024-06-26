@@ -1,11 +1,22 @@
-import multer from 'multer';
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+import multer from "multer"
+import fs from "fs";
 
-export const singleFileUpload = (fieldName) => {
-    return upload.single(fieldName);
-};
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const filePath = "upload";
+        fs.mkdirSync(filePath, { recursive: true })
+        cb(null, filePath);
 
-export const multipleFileUpload = (fieldName, maxCount) => {
-    return upload.array(fieldName, maxCount);
-};
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname);
+    },
+});
+
+export const singlefileupload = multer({
+    storage: storage,
+}).single("file");
+
+export const multiplefile = multer({
+    storage: storage,
+}).fields([{ name: 'image', maxCount: 5 }])

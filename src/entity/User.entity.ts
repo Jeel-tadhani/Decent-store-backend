@@ -1,5 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne, JoinColumn, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
 
+export enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin',
+}
+
+export enum UserStatus {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
 @Entity('users')
 export class User {
   toObject() {
@@ -20,6 +30,29 @@ export class User {
 
   @Column({ type: 'varchar', unique: true })
   email: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  avatar: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  sector: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  county: string;
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
+
+  @Column({
+    type: 'enum',
+    enum: UserStatus,
+    default: UserStatus.Active,
+  })
+  status: UserStatus;
 
   @Column({ type: 'varchar' })
   password: string;

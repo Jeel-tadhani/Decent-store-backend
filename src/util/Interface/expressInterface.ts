@@ -11,5 +11,10 @@ export interface CustomRequest extends ExpressRequest {
     },
     password: string,
     user: any,
-    tokenrole: string
+    tokenrole: string,
+    paginatation: {
+        skip: number,
+        page: number,
+        limit: number
+    }
 }
